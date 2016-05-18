@@ -1,19 +1,18 @@
 
-var musiciens = [];
+var musicians = [];
 var uid = [];
 
-mucisien = function(uuid, instrument){
+
+var mucisian = function(uuid, instrument){
     this.uid =  uuid;
     this.instrument = instrument;
-    this.acitveNow = Date.now();
-    this.lastactivity = Date.now();
+    this.acitveNow =  Date.now();
+    this.lastActivity =  Date.now();
 }
 
-jouer = function (joue) { 
- console.log("sound: " + play);
-  joue = JSON.parse(joue);
- 
-    var musicien;
+var jouer = function (joue) { 
+ console.log("sound: " + play); 
+    var musician;
       var instrument;
       var j = uid.indexOf(joue.uid) ; 
      if(j == -1){ 
@@ -31,39 +30,33 @@ jouer = function (joue) {
 	                  break;
            }
            
-         musiciens.push(joue.uuid, instrument); 
+         musicians.push(joue.uuid, instrument); 
 		 uid.push(joue.uuid);
          console.log(joue.uid + " started emitting : " + joue.sound); 
      } 
      else
-        musicien.lastactivity = now();
+        musician.lastactivity =  Date();
          } 
-     } 
+  
 
- } 
-
- send = function () { 
+ preparePayload = function () { 
     var valide = []; 
-     for(var i = 0; i < musiciens.length; i++){ 
-         if(Date.now() - musiciens[i].dernieractivity > 5000) { 
-             array.splice(i, 1); 
-         } 
-         else{ 
-             var musicien = { 
-                 uuid :  musiciens[i].uuid, 
-                 instrument :  musiciens[i].instrument, 
-                 activeSince : musiciens[i].activeSince.format("MM-DD-YYYY HH:mm:ss") 
+     for(var i = 0; i < musicians.length; i++){ 
+             var musician = { 
+                 uuid :  musicians[i].uuid, 
+                 instrument :  musicians[i].instrument, 
+                 activeSince : musicians[i].activeSince.format("MM-DD-YYYY HH:mm:ss") 
              }; 
-            valide.push(musicien); 
+            valide.push(musician); 
          } 
-     } 
+      
      return JSON.stringify(valide); 
  } 
 
 function refreshMusicians() {
-    var now = moment();
-    for(var i = 0; i < musiciens.length; i++){
-        if(now.diff(musiciens[i].lastActivity) > 5000) {
+    var now =  Date.now();
+    for(var i = 0; i < musicians.length; i++){
+        if(now.diff(musicians[i].lastActivity) > 5000) {
             musicians.splice(i, 1);
         }
     }
@@ -103,7 +96,7 @@ server.on('connection', request);
 
 
 function request(socket) {
-    socket.write(send());
+    socket.write( preparePayload ());
     socket.destroy();
 }
   
