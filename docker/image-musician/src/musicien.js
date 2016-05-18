@@ -30,7 +30,7 @@ function Musicien(instruments){
            var payload = JSON.stringify(joue);
            
        message = new Buffer(payload);
-       s.send(message, 0, message.length, 2205, "239.255.22.5", function(err, bytes) {
+       s.send(message, 0, message.length, 9907, "239.255.22.5", function(err, bytes) {
             console.log("Playing sound : " + payload + " via port " + s.address().port);
         });
        }	
